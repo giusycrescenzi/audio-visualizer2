@@ -1,0 +1,92 @@
+cmake_minimum_required(VERSION 3.16)
+project(MusicArt2 LANGUAGES CXX)
+
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
+# Variabili per i path (più leggibile e manutenibile)
+set(QT_PREFIX /opt/homebrew/opt/qt)
+set(SFML_PREFIX /opt/homebrew/opt/sfml)
+set(FFTW_PREFIX /opt/homebrew/opt/fftw)
+
+# Includi i path manualmente (per FFTW e fallback)
+include_directories(${FFTW_PREFIX}/include)
+link_directories(${FFTW_PREFIX}/lib)
+
+# Aiuta CMake a trovare SFML (tramite il suo pacchetto CMake)
+set(SFML_DIR ${SFML_PREFIX}/lib/cmake/SFML)
+
+# Trova i moduli Qt6
+find_package(Qt6 REQUIRED COMPONENTS Core Gui Widgets)
+find_package(SFML 3 REQUIRED COMPONENTS audio)
+
+# File sorgente
+file(GLOB_RECURSE SOURCES CONFIGURE_DEPENDS src/*.cpp src/*.h)
+
+# Crea eseguibile
+add_executable(MusicArt2 ${SOURCES})
+
+# Linka Qt
+target_link_libraries(MusicArt2
+        Qt6::Core
+        Qt6::Gui
+        Qt6::Widgets
+)
+
+set(CMAKE_AUTOMOC ON)
+set(CMAKE_AUTOUIC ON)
+set(CMAKE_AUTORCC ON)
+
+# Linka SFML
+target_link_libraries(MusicArt2 sfml-audio)
+
+# Linka FFTW
+target_link_libraries(MusicArt2 fftw3)
+
+cmake_minimum_required(VERSION 3.16)
+project(MusicArt2 LANGUAGES CXX)
+
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
+# Variabili per i path (più leggibile e manutenibile)
+set(QT_PREFIX /opt/homebrew/opt/qt)
+set(SFML_PREFIX /opt/homebrew/opt/sfml)
+set(FFTW_PREFIX /opt/homebrew/opt/fftw)
+
+# Includi i path manualmente (per FFTW e fallback)
+include_directories(${FFTW_PREFIX}/include)
+link_directories(${FFTW_PREFIX}/lib)
+
+# Aiuta CMake a trovare SFML (tramite il suo pacchetto CMake)
+set(SFML_DIR ${SFML_PREFIX}/lib/cmake/SFML)
+
+# Trova i moduli Qt6
+find_package(Qt6 REQUIRED COMPONENTS Core Gui Widgets)
+find_package(SFML 3 REQUIRED COMPONENTS audio)
+
+# File sorgente
+file(GLOB_RECURSE SOURCES CONFIGURE_DEPENDS src/*.cpp)
+file(GLOB_RECURSE HEADERS CONFIGURE_DEPENDS src/*.h)
+
+# Crea eseguibile
+add_executable(MusicArt2 ${SOURCES} ${HEADERS})
+
+# Linka Qt
+target_link_libraries(MusicArt2
+        Qt6::Core
+        Qt6::Gui
+        Qt6::Widgets
+)
+
+# Linka SFML
+target_link_libraries(MusicArt2 sfml-audio)
+
+# Linka FFTW
+target_link_libraries(MusicArt2 fftw3)
+
+# Copia assets accanto all’eseguibile
+add_custom_command(TARGET MusicArt2 POST_BUILD
+        COMMAND ${CMAKE_COMMAND} -E copy_directory
+        ${CMAKE_SOURCE_DIR}/assets $<TARGET_FILE_DIR:MusicArt2>/assets
+)
