@@ -1,80 +1,30 @@
-#include <SFML/Audio.hpp>
-
 #include <QApplication>
-#include <QMainWindow>
-#include <QPushButton>
-#include <QFileDialog>
-#include <QVBoxLayout>
-#include <QWidget>
-#include <SFML/Audio.hpp>
-#include <iostream>
-
-class MusicVisualizer : public QMainWindow {
-    Q_OBJECT
-
-public:
-    MusicVisualizer(QWidget *parent = nullptr) : QMainWindow(parent) {
-        auto *central = new QWidget(this);
-        auto *layout = new QVBoxLayout(central);
-
-        auto *button = new QPushButton("Choose and Play MP3", this);
-        layout->addWidget(button);
-        connect(button, &QPushButton::clicked, this, &MusicVisualizer::loadAndPlayMusic);
-
-        setCentralWidget(central);
-        setWindowTitle("MusicArt2");
-        resize(400, 200);
-    }
-
-private:
-    sf::Music music;
-
-    void loadAndPlayMusic() {
-        QString file = QFileDialog::getOpenFileName(
-            this,
-            "Open MP3 File",
-            QDir::homePath(),
-            "Audio Files (*.mp3)"
-        );
-
-        if (!file.isEmpty()) {
-            if (!music.openFromFile(file.toStdString())) {
-                std::cerr << "Failed to open " << file.toStdString() << std::endl;
-                return;
-            }
-            music.play();
-        }
-    }
-};
-
-#include "main.moc"
+#include "VisualizerWindow.h"
+#include "AudioManager.h"
+#include "FFTAnalyzer.h"
 
 int main(int argc, char *argv[]) {
     QApplication app(argc, argv);
-    MusicVisualizer window;
-    window.show();
-    return app.exec();
-}
 
-/*int main() {
-    // Carica il buffer audio da un file
-    sf::SoundBuffer buffer;
-    if (!buffer.loadFromFile("suono.wav")) {
-        // Gestione dell'errore
+    qDebug() << "Application started";
+
+    // ✅ Percorso assoluto del file .wav da riprodurre e visualizzare
+    const std::string filePath = "/Users/giuseppecrescenzi/Desktop/pezzi/HOUSE/wav/Can We Kiss (tonight).wav";
+
+    // ✅ Istanzia e riproduci audio
+    auto* audioManager = new AudioManager();
+    if (!audioManager->play(filePath)) {
+        qCritical("Errore nel caricamento o nella riproduzione dell'audio.");
         return -1;
     }
 
-    // Crea un oggetto Sound e associa il buffer
-    sf::Sound sound;
-    sound.setBuffer(buffer);
+    // ✅ Crea l'analizzatore FFT con l'audio manager
+    auto* fftAnalyzer = new FFTAnalyzer(audioManager);
 
-    // Riproduci il suono
-    sound.play();
+    // ✅ Crea e mostra la finestra di visualizzazione
+    auto* visualizer = new VisualizerWindow(audioManager, fftAnalyzer);
+    visualizer->resize(800, 600);
+    visualizer->show();
 
-    // Attendi che il suono termini
-    while (sound.getStatus() == sf::Sound::Playing) {
-        sf::sleep(sf::milliseconds(100));
-    }
-
-    return 0;
-}*/
+    return app.exec();
+}

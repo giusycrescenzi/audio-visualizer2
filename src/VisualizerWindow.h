@@ -1,8 +1,12 @@
 #ifndef VISUALIZERWINDOW_H
 #define VISUALIZERWINDOW_H
 
+#include <QDir>
+#include <QApplication>
 #include <QWidget>
 #include <QTimer>
+#include <QPainter>
+#include <QPainterPath>
 #include "AudioManager.h"
 #include "FFTAnalyzer.h"
 
@@ -11,18 +15,19 @@ class VisualizerWindow : public QWidget {
 
 public:
     VisualizerWindow(AudioManager* audioManager, FFTAnalyzer* fftAnalyzer, QWidget* parent = nullptr);
-    ~VisualizerWindow();
+    ~VisualizerWindow() override;
 
 protected:
-    void paintEvent(QPaintEvent* event) override;  // Richiamato ogni volta che serve ridisegnare
+    void paintEvent(QPaintEvent* event) override;  // This is where we draw the random visualization
 
     private slots:
-        void updateFrame();  // Chiamato dal timer ogni 16 ms (~60 FPS)
+        void updateFrame();  // This is the slot for the timer event
 
 private:
     AudioManager* audioManager;
     FFTAnalyzer* fftAnalyzer;
-    QTimer timer;  // Timer per aggiornare la finestra periodicamente
+    QTimer* timer;  // Timer for regular updates
+    int frameCount;
 };
 
 #endif // VISUALIZERWINDOW_H

@@ -3,18 +3,23 @@
 
 #include "AudioManager.h"
 #include <vector>
+#include <fftw3.h>
 
 class FFTAnalyzer {
 public:
     explicit FFTAnalyzer(AudioManager* audioManager);
     ~FFTAnalyzer();
 
-    void analyze();                // Analizza i campioni audio correnti
-    float getCurrentEnergy() const; // Ritorna energia normalizzata (0.0 – 1.0)
+    void analyze();
+    float getCurrentEnergy() const;
 
 private:
-    AudioManager* audioManager;   // Puntatore alla sorgente audio
-    float currentEnergy;          // Energia calcolata (aggiornata ogni frame)
+    AudioManager* audioManager;
+    float currentEnergy;
+
+    std::vector<double> audioSamples;
+    fftw_complex* fftResult;   // ✅ Usato con fftw_malloc
+    fftw_plan fftPlan;
 };
 
 #endif // FFTANALYZER_H
