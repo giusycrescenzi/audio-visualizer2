@@ -1,0 +1,5 @@
+/Users/giuseppecrescenzi/cli-cpp/audio-visualizer2/cmake-build-debug/CMakeFiles/MusicArt2.dir
+/Users/giuseppecrescenzi/cli-cpp/audio-visualizer2/cmake-build-debug/CMakeFiles/edit_cache.dir
+/Users/giuseppecrescenzi/cli-cpp/audio-visualizer2/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+/Users/giuseppecrescenzi/cli-cpp/audio-visualizer2/cmake-build-debug/CMakeFiles/MusicArt2_autogen_timestamp_deps.dir
+/Users/giuseppecrescenzi/cli-cpp/audio-visualizer2/cmake-build-debug/CMakeFiles/MusicArt2_autogen.dir

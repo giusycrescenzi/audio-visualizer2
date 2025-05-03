@@ -1,0 +1,78 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"jsonFile" : "directory-.-Debug-f5ebdc15457944623624.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.16"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2
+					]
+				}
+			],
+			"name" : "Debug",
+			"projects" : 
+			[
+				{
+					"directoryIndexes" : 
+					[
+						0
+					],
+					"name" : "MusicArt2",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 0,
+					"id" : "MusicArt2::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-MusicArt2-Debug-daf80ce97d37890a8dad.json",
+					"name" : "MusicArt2",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "MusicArt2_autogen::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-MusicArt2_autogen-Debug-5a105281703bc56bb463.json",
+					"name" : "MusicArt2_autogen",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "MusicArt2_autogen_timestamp_deps::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-MusicArt2_autogen_timestamp_deps-Debug-8544b7d81dd06905b387.json",
+					"name" : "MusicArt2_autogen_timestamp_deps",
+					"projectIndex" : 0
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "/Users/giuseppecrescenzi/cli-cpp/audio-visualizer2/cmake-build-debug",
+		"source" : "/Users/giuseppecrescenzi/cli-cpp/audio-visualizer2"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 7
+	}
+}
